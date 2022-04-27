@@ -1,0 +1,121 @@
+package rules;
+import entities.Patient;
+
+
+rule "check_fiebre" dialect  "mvel"
+    when
+        mi_paciente: Patient(temperatura>37.5)
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+75*100/810);
+    end
+rule "check_tos" dialect  "mvel"
+           when
+               mi_paciente: Patient(tos==tos.no_productiva)
+           then
+               mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+85*100/810);
+           end
+
+rule "check_cansancio" dialect  "mvel"
+    when
+        mi_paciente: Patient(cansancio==true)
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+65*100/810);
+    end
+
+rule "check_perdida_gusto_olfato" dialect  "mvel"
+    when
+        mi_paciente: Patient(perdida_gusto_olfato==true)
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+80*100/810);
+    end
+
+rule "check_disnea" dialect  "mvel"
+    when
+        mi_paciente: Patient(disnea==true)
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+75*100/810);
+    end
+
+rule "check_hipoxia" dialect  "mvel"
+    when
+        mi_paciente: Patient(hipoxia==true)
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+70*100/810);
+    end
+
+rule "check_dolor_garganta" dialect  "mvel"
+    when
+        mi_paciente: Patient(dolor_garganta==true)
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+40*100/810);
+    end
+
+rule "check_dolor_cabeza" dialect  "mvel"
+    when
+        mi_paciente: Patient(dolor_cabeza==true)
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+45*100/810);
+    end
+
+rule "check_diarrea" dialect  "mvel"
+    when
+        mi_paciente: Patient(diarrea==true)
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+5*100/810);
+    end
+
+rule "check_erupcion_cutanea" dialect  "mvel"
+    when
+        mi_paciente: Patient(erupcion_cutanea==true)
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+10*100/810);
+    end
+
+rule "check_ojos_rojos" dialect  "mvel"
+    when
+        mi_paciente: Patient(ojos_rojos==true)
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+15*100/810);
+    end
+
+rule "check_perdida_movilidad" dialect  "mvel"
+    when
+        mi_paciente: Patient(perdida_movilidad==true)
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+10*100/810);
+    end
+
+rule "check_dolor_pecho" dialect  "mvel"
+    when
+        mi_paciente: Patient(dolor_pecho==true)
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+20*100/810);
+    end
+
+rule "check_viaje_zona_afectada" dialect  "mvel"
+    when
+        mi_paciente: Patient(viaje_zona_afectada==true)
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+65*100/810);
+    end
+
+rule "check_contacto_con_positivo" dialect  "mvel"
+    when
+        mi_paciente: Patient(contacto_con_positivo==true)
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+75*100/810);
+    end
+
+rule "check_infiltraciones_pulmonares" dialect  "mvel"
+    when
+        mi_paciente: Patient(infiltraciones_pulmonares==true)
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+60*100/810);
+    end
+
+rule "check_pcr_positiva" dialect  "mvel"
+    when
+        mi_paciente: Patient(pcr_positiva==true)
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+80*100/810);
+    end
