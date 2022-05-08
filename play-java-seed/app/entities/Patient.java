@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Objects;
+
 public class Patient {
     public float temperatura;
     public enum Tos
@@ -41,22 +43,35 @@ public class Patient {
         Diagnosis = diagnosis;
     }
 
-    public boolean cansancio;
-    public boolean perdida_gusto_olfato;
-    public boolean disnea;
-    public boolean hipoxia; //no llega suficiente 02 al cerebro pero no encuentro cuánto es "poco" para poderlo poner como un numero
-    public boolean dolor_garganta;
-    public boolean dolor_cabeza;
-    public boolean diarrea;
-    public boolean erupcion_cutanea;
-    public boolean ojos_rojos;
-    public boolean perdida_movilidad;
-    public boolean dolor_pecho;
-    public boolean viaje_zona_afectada;
-    public boolean contacto_con_positivo;
-    public boolean infiltraciones_pulmonares;
-    public boolean pcr_positiva;
-    public Diagnosis Diagnosis;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Patient)) return false;
+        Patient patient = (Patient) o;
+        return Float.compare(patient.temperatura, temperatura) == 0 && id == patient.id && cansancio == patient.cansancio && perdida_gusto_olfato == patient.perdida_gusto_olfato && disnea == patient.disnea && hipoxia == patient.hipoxia && dolor_garganta == patient.dolor_garganta && dolor_cabeza == patient.dolor_cabeza && diarrea == patient.diarrea && erupcion_cutanea == patient.erupcion_cutanea && ojos_rojos == patient.ojos_rojos && perdida_movilidad == patient.perdida_movilidad && dolor_pecho == patient.dolor_pecho && viaje_zona_afectada == patient.viaje_zona_afectada && contacto_con_positivo == patient.contacto_con_positivo && infiltraciones_pulmonares == patient.infiltraciones_pulmonares && pcr_positiva == patient.pcr_positiva && tos == patient.tos && Diagnosis.equals(patient.Diagnosis);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(temperatura, tos, id, cansancio, perdida_gusto_olfato, disnea, hipoxia, dolor_garganta, dolor_cabeza, diarrea, erupcion_cutanea, ojos_rojos, perdida_movilidad, dolor_pecho, viaje_zona_afectada, contacto_con_positivo, infiltraciones_pulmonares, pcr_positiva, Diagnosis);
+    }
+
+    private boolean cansancio;
+    private boolean perdida_gusto_olfato;
+    private boolean disnea;
+    private boolean hipoxia; //no llega suficiente 02 al cerebro pero no encuentro cuánto es "poco" para poderlo poner como un numero
+    private boolean dolor_garganta;
+    private boolean dolor_cabeza;
+    private boolean diarrea;
+    private boolean erupcion_cutanea;
+    private boolean ojos_rojos;
+    private boolean perdida_movilidad;
+    private boolean dolor_pecho;
+    private boolean viaje_zona_afectada;
+    private boolean contacto_con_positivo;
+    private boolean infiltraciones_pulmonares;
+    private boolean pcr_positiva;
+    private Diagnosis Diagnosis;
 
     public Patient(float temperatura, boolean cansancio, boolean perdida_gusto_olfato, boolean disnea, boolean hipoxia, boolean dolor_garganta, boolean dolor_cabeza, boolean diarrea, boolean erupcion_cutanea, boolean ojos_rojos, boolean perdida_movilidad, boolean dolor_pecho, boolean viaje_zona_afectada, boolean contacto_con_positivo, boolean infiltraciones_pulmonares, boolean pcr_positiva, Diagnosis Diagnosis) {
         this.temperatura = temperatura;
@@ -76,6 +91,31 @@ public class Patient {
         this.infiltraciones_pulmonares = infiltraciones_pulmonares;
         this.pcr_positiva = pcr_positiva;
         this.Diagnosis = Diagnosis;
+    }
+
+    @Override
+    public String toString() {
+        return "Patient{" +
+                "temperatura=" + temperatura +
+                ", tos=" + tos +
+                ", id=" + id +
+                ", cansancio=" + cansancio +
+                ", perdida_gusto_olfato=" + perdida_gusto_olfato +
+                ", disnea=" + disnea +
+                ", hipoxia=" + hipoxia +
+                ", dolor_garganta=" + dolor_garganta +
+                ", dolor_cabeza=" + dolor_cabeza +
+                ", diarrea=" + diarrea +
+                ", erupcion_cutanea=" + erupcion_cutanea +
+                ", ojos_rojos=" + ojos_rojos +
+                ", perdida_movilidad=" + perdida_movilidad +
+                ", dolor_pecho=" + dolor_pecho +
+                ", viaje_zona_afectada=" + viaje_zona_afectada +
+                ", contacto_con_positivo=" + contacto_con_positivo +
+                ", infiltraciones_pulmonares=" + infiltraciones_pulmonares +
+                ", pcr_positiva=" + pcr_positiva +
+
+                '}';
     }
 
     public void setInfiltraciones_pulmonares(boolean infiltraciones_pulmonares) {

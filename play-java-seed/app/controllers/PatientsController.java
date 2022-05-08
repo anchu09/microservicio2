@@ -2,6 +2,7 @@ package controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import entities.Diagnosis;
 import entities.Patient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,11 +28,28 @@ public class PatientsController extends Controller {
         return created(ApplicationUtil.createResponse(jsonObject, true));
     }
 
-    public Result update(Http.Request request) {
+    /*public Result update(Http.Request request) {
         logger.debug("In PatientController.update()");
         JsonNode json = request.body().asJson();
         if (json == null) {
             return badRequest(ApplicationUtil.createResponse("Expecting Json data", false));
+        }
+        Patient patient = PatientService.getInstance().updatePatient(Json.fromJson(json, Patient.class));
+        logger.debug("In PatientController.update(), Patient is: {}",patient);
+        if (patient == null) {
+            return notFound(ApplicationUtil.createResponse("Patient not found", false));
+        }
+
+        JsonNode jsonObject = Json.toJson(patient);
+        return ok(ApplicationUtil.createResponse(jsonObject, true));
+    }*/
+
+    public Result update(int id) {
+        logger.debug("In PatientController.update(), update patient with id: {}",id);
+        JsonNode json = Json.toJson(PatientService.getInstance().getPatient(id));
+
+        if (PatientService.getInstance().getPatient(id) == null) {
+            return notFound(ApplicationUtil.createResponse("Patient with id:" + id + " not found", false));
         }
         Patient patient = PatientService.getInstance().updatePatient(Json.fromJson(json, Patient.class));
         logger.debug("In PatientController.update(), Patient is: {}",patient);
@@ -50,6 +68,23 @@ public class PatientsController extends Controller {
         }
         JsonNode jsonObjects = Json.toJson(PatientService.getInstance().getPatient(id));
         logger.debug("In PatientController.retrieve(), result is: {}",jsonObjects.toString());
+        return ok(ApplicationUtil.createResponse(jsonObjects, true));
+    }
+    public Result retrieveDiagnose(int id) {
+        logger.debug("In PatientController.retrieve(), retrieve patient diagnosis with id: {}",id);
+        if (PatientService.getInstance().getPatient(id) == null) {
+            return notFound(ApplicationUtil.createResponse("Patient with id:" + id + " not found", false));
+        }
+
+        DroolsController mydrool_test = new DroolsController();
+        Diagnosis diagnosis =  mydrool_test.executeBusinessRule(id);
+
+
+
+        JsonNode jsonObjects = Json.toJson(diagnosis);
+        logger.debug("In PatientController.retrieve(), result is: {}",jsonObjects.toString());
+
+
         return ok(ApplicationUtil.createResponse(jsonObjects, true));
     }
 

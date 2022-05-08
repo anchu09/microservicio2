@@ -9,7 +9,13 @@ public class Diagnosis {
         this.probabilidad = probabilidad;
     }
 
-
+    @Override
+    public String toString() {
+        return "Diagnosis{" +
+                "estadio=" + estadio +
+                ", probabilidad=" + probabilidad +
+                '}';
+    }
 
     public void setEstadio(int estadio) {
         this.estadio = estadio;

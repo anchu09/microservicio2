@@ -1,16 +1,21 @@
+
+
 package controllers;
 
+import entities.Diagnosis;
 import entities.Patient;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import services.PatientService;
 
-public class DroolTest {
+public class DroolsController {
     public static void main(String[] args) {
-        DroolTest mydrool_test = new DroolTest();
-        mydrool_test.executeBusinessRule();
+        DroolsController mydrool_test = new DroolsController();
+       // mydrool_test.executeBusinessRule();
     }
-    public void executeBusinessRule(){
+    public Diagnosis executeBusinessRule(int id){
+        Diagnosis diagnosis = new Diagnosis(1,0);
         try{
             KieServices kieServices = KieServices.Factory.get();
             KieContainer kc = kieServices.getKieClasspathContainer();
@@ -21,30 +26,42 @@ public class DroolTest {
             }else {
                 System.out.println("La sesión no es nula.");
 
-
-            //cambiar esto por coger el paciente de la tabla hash y actualizar su propio diagnostico y todo eso
-                Patient p1= new Patient();
-                p1.setTemperatura(39);
-                p1.setT(Patient.Tos.no_productiva);
-                p1.setCansancio(true);
-                p1.setContacto_con_positivo(true);
-                p1.setDisnea(true);
-                p1.setDolor_cabeza(true);
-                p1.setDolor_garganta(true);
-
-
-
-                ksession.insert(p1);
+                ksession.insert(PatientService.getInstance().getPatient(id));
                 ksession.fireAllRules();
-                ksession.dispose(); // Stateful rule session must always be disposed when finished
-                //System.out.println("The cashback for this payment channel VIA KIE"+my_payment_offer.getChannel());
+                ksession.dispose();
+                diagnosis=PatientService.getInstance().getPatient(id).getDiagnosis();
 
-                System.out.println("la probabilidad de covid es: " + p1.getDiagnostico().getProbabilidad());
 
+
+
+
+
+
+
+                //test de drools
+/*
+                for (int i=1; i<=100;i++) {
+
+                    System.out.println("tengo un paciente y es el "+ PatientService.getInstance().getPatient(i).getId());
+                    ksession.insert(PatientService.getInstance().getPatient(i));
+
+
+
+                }
+                ksession.fireAllRules();
+                ksession.dispose();
+
+
+                for (int i=1; i<=100;i++) {
+
+                    System.out.println("las probs son: " + PatientService.getInstance().getPatient(i).getDiagnosis().getProbabilidad());
+
+
+                }*/
             }
 
         } catch (Exception e){
             e.printStackTrace ();}
-
+        return diagnosis;
     }
 }

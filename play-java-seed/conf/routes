@@ -5,8 +5,10 @@
 # APIs in PatientController
 GET     /patients              controllers.PatientsController.listPatients()
 GET     /patients/:id          controllers.PatientsController.retrieve(id:Int)
+GET     /patients/:id/diagnose controllers.PatientsController.retrieveDiagnose(id:Int)
+
 POST    /patients              controllers.PatientsController.create(request:Request)
-PUT     /patients              controllers.PatientsController.update(request:Request)
+PUT     /patients/:id          controllers.PatientsController.update(id:Int)
 DELETE  /patients/:id          controllers.PatientsController.delete(id:Int)
  
 # Map static resources from the /public folder to the /assets URL path
