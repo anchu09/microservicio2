@@ -14,6 +14,10 @@ public class PatientService {
      for (int i=1; i<=100;i++){
          Patient p1 = new Patient();
          p1.setTemperatura((float) (Math.random()*5 + 35));
+         p1.setEdad((int) (Math.random()*100));
+        p1.setFuma(RandomBoolean());
+        p1.setImc((float) (Math.random()*26 +19));
+        p1.setGravedad_otras_enfermedades((int)Math.random()*5);
          int randomTos= (int) (Math.random()*3);
          switch (randomTos)
          {
@@ -31,11 +35,13 @@ public class PatientService {
          }
          p1.setCansancio(RandomBoolean());
          p1.setPerdida_gusto_olfato(RandomBoolean());
+
          p1.setDisnea(RandomBoolean());
          p1.setHipoxia(RandomBoolean());
          p1.setDolor_garganta(RandomBoolean());
          p1.setDolor_cabeza(RandomBoolean());
          p1.setDiarrea(RandomBoolean());
+
          p1.setErupcion_cutanea(RandomBoolean());
          p1.setOjos_rojos(RandomBoolean());
          p1.setPerdida_movilidad(RandomBoolean());
@@ -44,6 +50,21 @@ public class PatientService {
          p1.setContacto_con_positivo(RandomBoolean());
          p1.setInfiltraciones_pulmonares(RandomBoolean());
          p1.setPcr_positiva(RandomBoolean());
+         p1.setReduccion_viremia(RandomBoolean());
+         p1.setDano_tisular(RandomBoolean());
+         p1.setInflamacion_pulmon(RandomBoolean());
+         p1.setNeumonia_viral(RandomBoolean());
+
+         p1.setInsuficiencia_respiratoria_aguda(RandomBoolean());
+         p1.setTransaminasas_altas(RandomBoolean());
+         p1.setInsuficiencia_multiorganica(RandomBoolean());
+         p1.setColapso_cardiopulmonar(RandomBoolean());
+         p1.setSindrome_tormenta_citoquinas(RandomBoolean());
+         p1.setHiperinflamacion_sistemica(RandomBoolean());
+         p1.setShock(RandomBoolean());
+         p1.setColapso_cardiopulmonar(RandomBoolean());
+         p1.setFallo_otros_organos(RandomBoolean());
+
          getInstance().addPatient(p1);
      }
 

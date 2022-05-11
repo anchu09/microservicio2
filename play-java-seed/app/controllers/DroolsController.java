@@ -9,13 +9,16 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import services.PatientService;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
+
 public class DroolsController {
     public static void main(String[] args) {
         DroolsController mydrool_test = new DroolsController();
        // mydrool_test.executeBusinessRule();
     }
     public Diagnosis executeBusinessRule(int id){
-        Diagnosis diagnosis = new Diagnosis(1,0);
+        Diagnosis diagnosis = new Diagnosis(1,0, Diagnosis.Riesgo.bajo);
         try{
             KieServices kieServices = KieServices.Factory.get();
             KieContainer kc = kieServices.getKieClasspathContainer();

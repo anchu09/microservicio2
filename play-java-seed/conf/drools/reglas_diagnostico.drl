@@ -1,131 +1,449 @@
 package drools;
 import entities.Patient
-import services.PatientService;
-
+import services.PatientService
+import java.util.List
+import java.util.ArrayList
+import entities.Diagnosis;
 
 rule "check_fiebre" dialect  "mvel"
     when
-        mi_paciente: Patient(temperatura>37)
+        mi_paciente: Patient(temperatura>37) //estadio 1
     then
-        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+75*100/810);
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+(75*100/1430));
+                        mi_paciente.getDiagnosis().setEstadio(1);
+
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+10);
+
+                mi_paciente.getDiagnosis().actualizadiccionario(1, "fiebre");
+
+
     end
+
 rule "check_tos" dialect  "mvel"
            when
                mi_paciente: Patient(tos==Tos.no_productiva)
            then
-               mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+85*100/810);
+               mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+85*100/1430);
+                               mi_paciente.getDiagnosis().setEstadio(1);
+
+        mi_paciente.getDiagnosis().actualizadiccionario(1, "tos");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+10);
+
            end
 
 rule "check_cansancio" dialect  "mvel"
     when
-        mi_paciente: Patient(cansancio==true)
+        mi_paciente: Patient(cansancio==true)//estadio 1
     then
-        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+65*100/810);
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+65*100/1430);
+                        mi_paciente.getDiagnosis().setEstadio(1);
+
+        mi_paciente.getDiagnosis().actualizadiccionario(1, "cansancio");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+3);
+
+
     end
 
 rule "check_perdida_gusto_olfato" dialect  "mvel"
     when
-        mi_paciente: Patient(perdida_gusto_olfato==true)
+        mi_paciente: Patient(perdida_gusto_olfato==true)//estadio 1
     then
-        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+80*100/810);
-    end
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+80*100/1430);
+                        mi_paciente.getDiagnosis().setEstadio(1);
 
-rule "check_disnea" dialect  "mvel"
-    when
-        mi_paciente: Patient(disnea==true)
-    then
-        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+75*100/810);
-    end
+        mi_paciente.getDiagnosis().actualizadiccionario(1, "perdida_gusto_olfato");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+3);
 
-rule "check_hipoxia" dialect  "mvel"
-    when
-        mi_paciente: Patient(hipoxia==true)
-    then
-        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+70*100/810);
     end
 
 rule "check_dolor_garganta" dialect  "mvel"
     when
-        mi_paciente: Patient(dolor_garganta==true)
+        mi_paciente: Patient(dolor_garganta==true)//estadio 1
     then
-        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+40*100/810);
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+40*100/1430);
+                        mi_paciente.getDiagnosis().setEstadio(1);
+
+        mi_paciente.getDiagnosis().actualizadiccionario(1, "dolor_garganta");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+10);
+
     end
+
+    rule "check_dolor_pecho" dialect  "mvel"
+        when
+            mi_paciente: Patient(dolor_pecho==true)//estadio 1
+        then
+            mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+20*100/1430);
+                            mi_paciente.getDiagnosis().setEstadio(1);
+
+        mi_paciente.getDiagnosis().actualizadiccionario(1, "dolor_pecho");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+20);
+
+        end
+
 
 rule "check_dolor_cabeza" dialect  "mvel"
     when
-        mi_paciente: Patient(dolor_cabeza==true)
+        mi_paciente: Patient(dolor_cabeza==true)//estadio 1
     then
-        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+45*100/810);
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+45*100/1430);
+                mi_paciente.getDiagnosis().setEstadio(1);
+
+        mi_paciente.getDiagnosis().actualizadiccionario(1, "dolor_cabeza");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+15);
+
     end
+
+rule "check_disnea" dialect  "mvel"
+    when
+        mi_paciente: Patient(disnea==true)//estadio2
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+75*100/1430);
+        mi_paciente.getDiagnosis().setEstadio(2);
+        mi_paciente.getDiagnosis().actualizadiccionario(2, "disnea");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+8);
+
+    end
+
+rule "check_hipoxia" dialect  "mvel"
+    when
+        mi_paciente: Patient(hipoxia==true)//estadio 2
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+70*100/1430);
+        mi_paciente.getDiagnosis().setEstadio(2);
+
+        mi_paciente.getDiagnosis().actualizadiccionario(2, "hipoxia");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+20);
+
+    end
+
+
 
 rule "check_diarrea" dialect  "mvel"
     when
-        mi_paciente: Patient(diarrea==true)
+        mi_paciente: Patient(diarrea==true)//estadio 2
     then
-        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+5*100/810);
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+5*100/1430);
+        mi_paciente.getDiagnosis().setEstadio(2);
+        mi_paciente.getDiagnosis().actualizadiccionario(2, "diarrea");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+10);
+
     end
 
 rule "check_erupcion_cutanea" dialect  "mvel"
     when
-        mi_paciente: Patient(erupcion_cutanea==true)
+        mi_paciente: Patient(erupcion_cutanea==true)//estadio 2
     then
-        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+10*100/810);
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+10*100/1430);
+
+        mi_paciente.getDiagnosis().setEstadio(2);
+        mi_paciente.getDiagnosis().actualizadiccionario(2, "erupcion_cutanea");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+15);
+
     end
 
 rule "check_ojos_rojos" dialect  "mvel"
     when
-        mi_paciente: Patient(ojos_rojos==true)
+        mi_paciente: Patient(ojos_rojos==true)//estadio 2
     then
-        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+15*100/810);
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+15*100/1430);
+        mi_paciente.getDiagnosis().setEstadio(2);
+        mi_paciente.getDiagnosis().actualizadiccionario(2, "ojos_rojos");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+8);
+
     end
+
+
+
+
+rule "check_reduccion_viremia" dialect  "mvel"
+    when
+        mi_paciente: Patient(reduccion_viremia==true)//estadio 2
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+60*100/1430);
+        mi_paciente.getDiagnosis().setEstadio(2);
+        mi_paciente.getDiagnosis().actualizadiccionario(2, "reduccion_viremia");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+40);
+
+    end
+
+rule "check_dano_tisular" dialect  "mvel"
+    when
+        mi_paciente: Patient(dano_tisular==true)//estadio 2
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+70*100/1430);
+        mi_paciente.getDiagnosis().setEstadio(2);
+        mi_paciente.getDiagnosis().actualizadiccionario(2, "dano_tisular");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+65);
+
+    end
+
+rule "check_inflamacion_pulmon" dialect  "mvel"
+    when
+        mi_paciente: Patient(inflamacion_pulmon==true)//estadio 2
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+80*100/1430);
+        mi_paciente.getDiagnosis().setEstadio(2);
+        mi_paciente.getDiagnosis().actualizadiccionario(2, "inflamacion_pulmon");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+70);
+
+    end
+
+rule "check_neumonia_viral" dialect  "mvel"
+    when
+        mi_paciente: Patient(neumonia_viral==true)//estadio 2
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+85*100/1430);
+        mi_paciente.getDiagnosis().setEstadio(2);
+        mi_paciente.getDiagnosis().actualizadiccionario(2, "neumonia_viral");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+75);
+
+    end
+
+rule "check_insuficiencia_respiratoria_aguda" dialect  "mvel"
+    when
+        mi_paciente: Patient(insuficiencia_respiratoria_aguda==true)//estadio 2
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+70*100/1430);
+         mi_paciente.getDiagnosis().setEstadio(2);
+        mi_paciente.getDiagnosis().actualizadiccionario(2, "insuficiencia_respiratoria_aguda");
+                mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+65);
+
+
+    end
+rule "check_infiltraciones_pulmonares" dialect  "mvel"
+    when
+        mi_paciente: Patient(infiltraciones_pulmonares==true)//estadio 2
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+60*100/1430);
+         mi_paciente.getDiagnosis().setEstadio(2);
+        mi_paciente.getDiagnosis().actualizadiccionario(2, "infiltraciones_pulmonares");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+50);
+
+    end
+
+rule "check_transaminasas_altas" dialect  "mvel"
+    when
+        mi_paciente: Patient(transaminasas_altas==true)//estadio 2
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+75*100/1430);
+         mi_paciente.getDiagnosis().setEstadio(2);
+        mi_paciente.getDiagnosis().actualizadiccionario(2, "transaminasas_altas");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+70);
+
+    end
+
 
 rule "check_perdida_movilidad" dialect  "mvel"
     when
-        mi_paciente: Patient(perdida_movilidad==true)
+        mi_paciente: Patient(perdida_movilidad==true)//estadio 3
     then
-        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+10*100/810);
+
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+10*100/1430);
+
+         mi_paciente.getDiagnosis().setEstadio(3);
+        mi_paciente.getDiagnosis().actualizadiccionario(3, "perdida_movilidad");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+40);
+
     end
 
-rule "check_dolor_pecho" dialect  "mvel"
+rule "check_insuficiencia_multiorganica" dialect  "mvel"
     when
-        mi_paciente: Patient(dolor_pecho==true)
+        mi_paciente: Patient(insuficiencia_multiorganica==true)//estadio 3
     then
-        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+20*100/810);
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+40*100/1430);
+         mi_paciente.getDiagnosis().setEstadio(3);
+                     mi_paciente.getDiagnosis().actualizadiccionario(3, "insuficiencia_multiorganica");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+100);
+
+    end
+
+rule "check_compromiso_pulmonar_critico" dialect  "mvel"
+    when
+        mi_paciente: Patient(compromiso_pulmonar_critico==true)//estadio 3
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+35*100/1430);
+         mi_paciente.getDiagnosis().setEstadio(3);
+                    mi_paciente.getDiagnosis().actualizadiccionario(3, "compromiso_pulmonar_critico");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+100);
+
+    end
+
+rule "check_sindrome_tormenta_citoquinas" dialect  "mvel"
+    when
+        mi_paciente: Patient(sindrome_tormenta_citoquinas==true)//estadio 3
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+35*100/1430);
+
+        mi_paciente.getDiagnosis().setEstadio(3);
+               mi_paciente.getDiagnosis().actualizadiccionario(3, "sindrome_tormenta_citoquinas");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+100);
+
+    end
+
+rule "check_hiperinflamacion_sistemica" dialect  "mvel"
+    when
+        mi_paciente: Patient(hiperinflamacion_sistemica==true)//estadio 3
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+20*100/1430);
+
+        mi_paciente.getDiagnosis().setEstadio(3);
+                    mi_paciente.getDiagnosis().actualizadiccionario(3, "hiperinflamacion_sistemica");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+85);
+
+    end
+
+rule "check_shock" dialect  "mvel"
+    when
+        mi_paciente: Patient(shock==true)//estadio 3
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+10*100/1430);
+
+        mi_paciente.getDiagnosis().setEstadio(3);
+                mi_paciente.getDiagnosis().actualizadiccionario(3, "shock");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+70);
+
+    end
+
+rule "check_colapso_cardiopulmonar" dialect  "mvel"
+    when
+        mi_paciente: Patient(colapso_cardiopulmonar==true)//estadio 3
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+15*100/1430);
+         mi_paciente.getDiagnosis().setEstadio(3);
+                   mi_paciente.getDiagnosis().actualizadiccionario(3, "colapso_cardiopulmonar");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+95);
+
+    end
+
+rule "check_fallo_otros_organos" dialect  "mvel"
+    when
+        mi_paciente: Patient(fallo_otros_organos==true)//estadio 3
+    then
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+25*100/1430);
+         mi_paciente.getDiagnosis().setEstadio(3);
+                    mi_paciente.getDiagnosis().actualizadiccionario(3, "fallo_otros_organos");
+        mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+85);
+
     end
 
 rule "check_viaje_zona_afectada" dialect  "mvel"
     when
         mi_paciente: Patient(viaje_zona_afectada==true)
     then
-        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+65*100/810);
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+65*100/1430);
+
     end
 
 rule "check_contacto_con_positivo" dialect  "mvel"
     when
         mi_paciente: Patient(contacto_con_positivo==true)
     then
-        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+75*100/810);
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+75*100/1430);
+
     end
 
-rule "check_infiltraciones_pulmonares" dialect  "mvel"
-    when
-        mi_paciente: Patient(infiltraciones_pulmonares==true)
-    then
-        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+60*100/810);
-    end
 
 rule "check_pcr_positiva" dialect  "mvel"
     when
         mi_paciente: Patient(pcr_positiva==true)
     then
-        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+80*100/810);
+        mi_paciente.getDiagnosis().setProbabilidad(mi_paciente.getDiagnosis().getProbabilidad()+80*100/1430);
+
 
     end
 
+      rule "riesgo_edad" dialect  "mvel"
+               when
+               mi_paciente: Patient(id>0)
+               then
+
+
+                   mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+ mi_paciente.getDiagnosis().returnRiesgoEdad(mi_paciente.getEdad()));
+
+               end
+     rule "riesgo_fumar" dialect  "mvel"
+              when
+        mi_paciente: Patient(fuma==true)
+              then
+
+
+                  mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+ 30);
+
+              end
+
+     rule "riesgo_sobrepeso" dialect  "mvel"
+              when
+        mi_paciente: Patient(imc>25)
+              then
+
+
+                  mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+ 30);
+
+              end
+
+     rule "riesgo_obesidad" dialect  "mvel"
+              when
+        mi_paciente: Patient(imc>35)
+              then
+                  mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+ 40);
+
+
+
+              end
+
+  rule "riesgo_otras_enfermedades" dialect  "mvel"
+              when
+    mi_paciente: Patient(id>0)
+
+              then
+
+                  mi_paciente.getDiagnosis().setRiesgoNumerico(mi_paciente.getDiagnosis().getRiesgoNumerico()+mi_paciente.getDiagnosis().returnRiesgoEnfermedades(mi_paciente.getGravedad_otras_enfermedades()) );
+
+
+              end
+
+
+
+rule "check_riesgo_medio" dialect  "mvel"
+    when
+        mi_paciente: Patient()
+        diagnosis: Diagnosis(riesgoNumerico>50) from mi_paciente.getDiagnosis();
+    then
+        mi_paciente.getDiagnosis().setRiesgo(Diagnosis.Riesgo.medio);
+
+
+    end
+rule "check_riesgo_alto" dialect  "mvel"
+    when
+        mi_paciente: Patient()
+           diagnosis: Diagnosis(riesgoNumerico>100) from mi_paciente.getDiagnosis();
+
+    then
+        mi_paciente.getDiagnosis().setRiesgo(Diagnosis.Riesgo.alto);
+
+
+    end
+rule "check_riesgo_critico" dialect  "mvel"
+    when
+         mi_paciente: Patient()
+         diagnosis: Diagnosis(riesgoNumerico>200) from mi_paciente.getDiagnosis();
+
+    then
+        mi_paciente.getDiagnosis().setRiesgo(Diagnosis.Riesgo.critico);
+
+
+    end
+
+
+
+
 rule "update_patient" dialect  "mvel"
     when
-        mi_paciente: Patient(id<0)
+        mi_paciente: Patient(id>0)
     then
         PatientService.getInstance().updatePatient(mi_paciente);
 
     end
+
+
+

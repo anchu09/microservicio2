@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.Objects;
 
 public class Patient {
@@ -19,9 +21,32 @@ public class Patient {
     }
 
     public Patient() {
-        this.Diagnosis= new Diagnosis(0,0);
+        this.Diagnosis= new Diagnosis(0,0, entities.Diagnosis.Riesgo.bajo);
     }
     public int id;
+
+    public boolean reduccion_viremia;
+    public boolean dano_tisular;
+    public boolean inflamacion_pulmon;
+    public boolean neumonia_viral;
+    public boolean insuficiencia_respiratoria_aguda;
+    public boolean transaminasas_altas;
+
+    public boolean insuficiencia_multiorganica;
+    public boolean compromiso_pulmonar_critico;
+    public boolean sindrome_tormenta_citoquinas;
+    public boolean hiperinflamacion_sistemica;
+    public boolean shock;
+    public boolean colapso_cardiopulmonar;
+    public boolean fallo_otros_organos;
+public int edad;
+public boolean fuma;
+public float imc;
+public int gravedad_otras_enfermedades;
+
+
+
+
 
     public Tos getTos() {
         return tos;
@@ -99,6 +124,23 @@ public class Patient {
                 "temperatura=" + temperatura +
                 ", tos=" + tos +
                 ", id=" + id +
+                ", reduccion_viremia=" + reduccion_viremia +
+                ", dano_tisular=" + dano_tisular +
+                ", inflamacion_pulmon=" + inflamacion_pulmon +
+                ", neumonia_viral=" + neumonia_viral +
+                ", insuficiencia_respiratoria_aguda=" + insuficiencia_respiratoria_aguda +
+                ", transaminasas_altas=" + transaminasas_altas +
+                ", insuficiencia_multiorganica=" + insuficiencia_multiorganica +
+                ", compromiso_pulmonar_critico=" + compromiso_pulmonar_critico +
+                ", sindrome_tormenta_citoquinas=" + sindrome_tormenta_citoquinas +
+                ", hiperinflamacion_sistemica=" + hiperinflamacion_sistemica +
+                ", shock=" + shock +
+                ", colapso_cardiopulmonar=" + colapso_cardiopulmonar +
+                ", fallo_otros_organos=" + fallo_otros_organos +
+                ", edad=" + edad +
+                ", fuma=" + fuma +
+                ", imc=" + imc +
+                ", gravedad_otras_enfermedades=" + gravedad_otras_enfermedades +
                 ", cansancio=" + cansancio +
                 ", perdida_gusto_olfato=" + perdida_gusto_olfato +
                 ", disnea=" + disnea +
@@ -114,7 +156,6 @@ public class Patient {
                 ", contacto_con_positivo=" + contacto_con_positivo +
                 ", infiltraciones_pulmonares=" + infiltraciones_pulmonares +
                 ", pcr_positiva=" + pcr_positiva +
-
                 '}';
     }
 
@@ -258,7 +299,143 @@ public class Patient {
         return pcr_positiva;
     }
 
+    public boolean isReduccion_viremia() {
+        return reduccion_viremia;
+    }
+
+    public void setReduccion_viremia(boolean reduccion_viremia) {
+        this.reduccion_viremia = reduccion_viremia;
+    }
+
+    public boolean isDano_tisular() {
+        return dano_tisular;
+    }
+
+    public void setDano_tisular(boolean dano_tisular) {
+        this.dano_tisular = dano_tisular;
+    }
+
+    public boolean isInflamacion_pulmon() {
+        return inflamacion_pulmon;
+    }
+
+    public void setInflamacion_pulmon(boolean inflamacion_pulmon) {
+        this.inflamacion_pulmon = inflamacion_pulmon;
+    }
+
+    public boolean isNeumonia_viral() {
+        return neumonia_viral;
+    }
+
+    public void setNeumonia_viral(boolean neumonia_viral) {
+        this.neumonia_viral = neumonia_viral;
+    }
+
+    public boolean isInsuficiencia_respiratoria_aguda() {
+        return insuficiencia_respiratoria_aguda;
+    }
+
+    public void setInsuficiencia_respiratoria_aguda(boolean insuficiencia_respiratoria_aguda) {
+        this.insuficiencia_respiratoria_aguda = insuficiencia_respiratoria_aguda;
+    }
+
+    public boolean isTransaminasas_altas() {
+        return transaminasas_altas;
+    }
+
+    public void setTransaminasas_altas(boolean transaminasas_altas) {
+        this.transaminasas_altas = transaminasas_altas;
+    }
+
+    public boolean isInsuficiencia_multiorganica() {
+        return insuficiencia_multiorganica;
+    }
+
+    public void setInsuficiencia_multiorganica(boolean insuficiencia_multiorganica) {
+        this.insuficiencia_multiorganica = insuficiencia_multiorganica;
+    }
+
+    public boolean isCompromiso_pulmonar_critico() {
+        return compromiso_pulmonar_critico;
+    }
+
+    public void setCompromiso_pulmonar_critico(boolean compromiso_pulmonar_critico) {
+        this.compromiso_pulmonar_critico = compromiso_pulmonar_critico;
+    }
+
+    public boolean isSindrome_tormenta_citoquinas() {
+        return sindrome_tormenta_citoquinas;
+    }
+
+    public void setSindrome_tormenta_citoquinas(boolean sindrome_tormenta_citoquinas) {
+        this.sindrome_tormenta_citoquinas = sindrome_tormenta_citoquinas;
+    }
+
+    public boolean isHiperinflamacion_sistemica() {
+        return hiperinflamacion_sistemica;
+    }
+
+    public void setHiperinflamacion_sistemica(boolean hiperinflamacion_sistemica) {
+        this.hiperinflamacion_sistemica = hiperinflamacion_sistemica;
+    }
+
+    public boolean isShock() {
+        return shock;
+    }
+
+    public void setShock(boolean shock) {
+        this.shock = shock;
+    }
+
+    public boolean isColapso_cardiopulmonar() {
+        return colapso_cardiopulmonar;
+    }
+
+    public void setColapso_cardiopulmonar(boolean colapso_cardiopulmonar) {
+        this.colapso_cardiopulmonar = colapso_cardiopulmonar;
+    }
+
+    public boolean isFallo_otros_organos() {
+        return fallo_otros_organos;
+    }
+
+    public void setFallo_otros_organos(boolean fallo_otros_organos) {
+        this.fallo_otros_organos = fallo_otros_organos;
+    }
+
     public Diagnosis getDiagnosis() {
         return this.Diagnosis;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public boolean isFuma() {
+        return fuma;
+    }
+
+    public void setFuma(boolean fuma) {
+        this.fuma = fuma;
+    }
+
+    public float getImc() {
+        return imc;
+    }
+
+    public void setImc(float imc) {
+        this.imc = imc;
+    }
+
+    public int getGravedad_otras_enfermedades() {
+        return gravedad_otras_enfermedades;
+    }
+
+    public void setGravedad_otras_enfermedades(int gravedad_otras_enfermedades) {
+        this.gravedad_otras_enfermedades = gravedad_otras_enfermedades;
     }
 }

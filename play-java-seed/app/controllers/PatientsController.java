@@ -66,7 +66,7 @@ public class PatientsController extends Controller {
         if (PatientService.getInstance().getPatient(id) == null) {
             return notFound(ApplicationUtil.createResponse("Patient with id:" + id + " not found", false));
         }
-        JsonNode jsonObjects = Json.toJson(PatientService.getInstance().getPatient(id));
+        JsonNode jsonObjects = Json.toJson(PatientService.getInstance().getPatient(id).toString());
         logger.debug("In PatientController.retrieve(), result is: {}",jsonObjects.toString());
         return ok(ApplicationUtil.createResponse(jsonObjects, true));
     }
@@ -81,7 +81,7 @@ public class PatientsController extends Controller {
 
 
 
-        JsonNode jsonObjects = Json.toJson(diagnosis);
+        JsonNode jsonObjects = Json.toJson(diagnosis.toString());
         logger.debug("In PatientController.retrieve(), result is: {}",jsonObjects.toString());
 
 
